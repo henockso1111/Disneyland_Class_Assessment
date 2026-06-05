@@ -1,11 +1,22 @@
+"""
+This module is responsible for processing the data.  It will largely contain functions that will recieve the overall dataset and 
+perfrom necessary processes in order to provide the desired result in the desired format.
+It is likely that most sections will require functions to be placed in this module.
+"""
+
+
 import csv
+from pathlib import Path
 
 
 def load_data(filename):
-
     data = []
+    filepath = Path(filename)
 
-    with open(filename, "r", encoding="latin-1") as file:
+    if not filepath.is_absolute():
+        filepath = Path(__file__).resolve().parent / filename
+
+    with open(filepath, "r", encoding="latin-1") as file:
         reader = csv.DictReader(file)
 
         for row in reader:
